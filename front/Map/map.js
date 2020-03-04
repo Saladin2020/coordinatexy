@@ -1,7 +1,7 @@
 v_map = new Vue({
     el: '#app_map',
     data: {
-        api_url: BASE_URL + 'api_coordinatexy/index.php/v1/get_house',
+        api_url: BASE_URL + 'loader.php?page=get_house',
         position: []
     },
     mounted() {

@@ -1,6 +1,7 @@
 <?php
-header('Access-Control-Allow-Origin: *');
-header("Access-Control-Allow-Headers:{$_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']}");
+//header('Access-Control-Allow-Origin: *');
+//header("Access-Control-Allow-Headers:{$_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']}");
+date_default_timezone_set("Asia/Bangkok");
 require_once './core/constant.php';
 require_once './core/blueprint.php';
 require_once './core/builder.php';
@@ -42,6 +43,18 @@ switch ((isset($_GET["page"]) != '') ? $_GET["page"] : '') {
         break;
     case 'activate_user':
         routepage::activate_user();
+        break;
+    case 'get_house':
+        routepage::get_house();
+        break;
+    case 'register_house':
+        routepage::register_house();
+        break;
+    case 'edit_house':
+        routepage::edit_house();
+        break;
+    case 'remove_house':
+        routepage::remove_house();
         break;
     default:
         echo "no page";

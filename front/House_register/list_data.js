@@ -1,8 +1,8 @@
 v_list_data = new Vue({
     el: "#list_data",
     data: {
-        api_url: BASE_URL + 'api_coordinatexy/index.php/v1/get_house',
-        api_url_remove: BASE_URL + 'api_coordinatexy/index.php/v1/rm_house',
+        api_url: BASE_URL + 'loader.php?page=get_house',
+        api_url_remove: BASE_URL + 'loader.php?page=remove_house',
         header_set: {
             'id': false,
             'hid': 'เลขทะเบียนบ้าน',
@@ -60,7 +60,6 @@ v_list_data = new Vue({
         },
         edit_data: function (index) {
             v_get_address.edit_status = true
-            v_get_address.id = this.lst_dat.message[index].id
             v_get_address.sel_province = this.lst_dat.message[index].hprovince_number
             v_get_address.sel_amphur = this.lst_dat.message[index].hamphur_number
             v_get_address.sel_district = this.lst_dat.message[index].hdistrict_number

@@ -15,33 +15,32 @@ v_get_address = new Vue({
         address: '',
         x: 0,
         y: 0,
-        id: -1,
         explorer: '',
         error_msg: ''
     },
     mounted: function () {
-        axios.get('https://getxy2020.herokuapp.com/api/province.json')
+        axios.get(BASE_URL +'api/province.json')
             .then(response => {
                 this.province = response.data.message
             })
             .catch(function (error) {
                 console.log(error);
             })
-        axios.get('https://getxy2020.herokuapp.com/api/amphur.json')
+        axios.get(BASE_URL +'api/amphur.json')
             .then(response => {
                 this.amphur = response.data.message
             })
             .catch(function (error) {
                 console.log(error);
             })
-        axios.get('https://getxy2020.herokuapp.com/api/district.json')
+        axios.get(BASE_URL +'api/district.json')
             .then(response => {
                 this.district = response.data.message
             })
             .catch(function (error) {
                 console.log(error);
             })
-        axios.get('https://getxy2020.herokuapp.com/api/zipcode.json')
+        axios.get(BASE_URL +'api/zipcode.json')
             .then(response => {
                 this.zipcode = response.data.message
             })
@@ -109,7 +108,6 @@ v_get_address = new Vue({
             this.address = ''
             this.x = 0
             this.y = 0
-            this.id = -1
         },
         save_func: function () {
             console.log(this.district_func(this.sel_district))
@@ -125,7 +123,8 @@ v_get_address = new Vue({
                 hprovince_name: this.province_func(this.sel_province),
                 x: this.x,
                 y: this.y,
-                explorer: this.explorer 
+                explorer: this.explorer,
+                time_explore: ''
             }
 
             Swal.fire({
@@ -138,17 +137,17 @@ v_get_address = new Vue({
                 cancelButtonText: 'cancel'
             }).then((result) => {
                 if (result.value) {
-                    axios.post(BASE_URL + 'api_coordinatexy/index.php/v1/save', post_data)
+                    axios.post(BASE_URL + 'loader.php?page=register_house', post_data)
                         .then(response => {
                             result = response.data.message
-                            if (result != 'data_exist') {
+                            if (response.data.status == 'success') {
                                 this.claer_profile()
                                 v_list_data.up()
                             } else {
                                 Swal.fire({
                                     icon: 'error',
                                     title: 'Oops...',
-                                    text: result,
+                                    text: response.data.status,
                                     confirmButtonColor: 'black',
                                 })
                             }
@@ -173,7 +172,6 @@ v_get_address = new Vue({
         edit_func: function () {
             console.log(this.district_func(this.sel_district))
             let post_data = {
-                id: this.id,
                 hid: this.hid,
                 haddress: this.address,
                 hmo: this.mo,
@@ -185,7 +183,8 @@ v_get_address = new Vue({
                 hprovince_name: this.province_func(this.sel_province),
                 x: this.x,
                 y: this.y,
-                explorer: this.explorer 
+                explorer: this.explorer,
+                time_explore: ''
             }
 
             Swal.fire({
@@ -198,7 +197,7 @@ v_get_address = new Vue({
                 cancelButtonText: 'cancel'
             }).then((result) => {
                 if (result.value) {
-                    axios.post(BASE_URL + 'api_coordinatexy/index.php/v1/ed_house', post_data)
+                    axios.post(BASE_URL + 'loader.php?page=edit_house', post_data)
                         .then(response => {
                             result = response.data.message
                             this.claer_profile()

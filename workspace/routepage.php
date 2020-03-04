@@ -54,7 +54,7 @@ class routepage
                 $build->create($rs);
                 $data["password_hash"] = md5($data["password_hash"]);
                 $data["group"] = "0";
-                $data["time_created"] = date("Y-m-d h:i:s");
+                $data["time_created"] = date("Y-m-d H:i:s");
                 $data["status"] = "padding";
                 $build->add($data);
                 jsonfile::save("./store/users.json", $build->read());
@@ -92,7 +92,7 @@ class routepage
             $build->update($position, "department", $data["department"]);
             $build->update($position, "password_hash", md5($data["password_hash"]));
             $build->update($position, "group", "0");
-            $build->update($position, "time_created", date("Y-m-d h:i:s"));
+            $build->update($position, "time_created", date("Y-m-d H:i:s"));
             $build->update($position, "status", "padding");
             jsonfile::save("./store/users.json", $build->read());
             echo json_encode(array(
@@ -177,5 +177,112 @@ class routepage
         session_destroy();
         header("Location: " . BASE_URL);
     }
+
+    ///////////////////////////////////////////////////////Register House
+
+
+    public static function get_house()
+    {
+        //$data = json_decode(file_get_contents("php://input"), true);
+        $rs = jsonfile::load("./store/house.json");
+        $build = new builder();
+        $build->create($rs);
+        echo json_encode(array(
+            'status' => 'success',
+            'message' => $build->read(),
+        ));
+    }
+
+    public static function register_house()
+    {
+        $data = json_decode(file_get_contents("php://input"), true);
+        $jf = new jsonformat();
+        if ($jf->prepare($data, REGHOUSE)[0] == "match") {
+            $rs = jsonfile::load("./store/house.json");
+            $jr = new jsonrule($rs);
+            if ($jr->is_exist("hid", $data["hid"])) {
+                $build = new builder();
+                $build->create($rs);
+                $data["time_explore"] = date("Y-m-d H:i:s");
+                $build->add($data);
+                jsonfile::save("./store/house.json", $build->read());
+                echo json_encode(array(
+                    'status' => 'success',
+                    'message' => $build->read(),
+                ));
+            } else {
+                echo json_encode(array(
+                    'status' => 'exist_house',
+                    'message' => $data["hid"] . ' already exist',
+                ));
+            }
+        } else {
+            echo json_encode(array(
+                'status' => 'error',
+                'message' => $jf->prepare($data, REGHOUSE)[0],
+            ));
+        }
+    }
+
+    public function edit_house()
+    {
+        $data = json_decode(file_get_contents("php://input"), true);
+        $jf = new jsonformat();
+        if ($jf->prepare($data, REGHOUSE)[0] == "match") {
+            $rs = jsonfile::load("./store/house.json");
+            $jr = new jsonrule($rs);
+            $build = new builder();
+            $build->create($rs);
+            $jr = new jsonrule($rs);
+            $position = $jr->get_position("hid", $data["hid"]);
+            $build->update($position, "hid", $data["hid"]);
+            $build->update($position, "haddress", $data["haddress"]);
+            $build->update($position, "hmo", $data["hmo"]);
+            $build->update($position, "hdistrict_number", $data["hdistrict_number"]);
+            $build->update($position, "hamphur_number", $data["hamphur_number"]);
+            $build->update($position, "hprovince_number", $data["hprovince_number"]);
+            $build->update($position, "hdistrict_name", $data["hdistrict_name"]);
+            $build->update($position, "hamphur_name", $data["hamphur_name"]);
+            $build->update($position, "hprovince_name", $data["hprovince_name"]);
+            $build->update($position, "x", $data["x"]);
+            $build->update($position, "y", $data["y"]);
+            $build->update($position, "explorer", $data["explorer"]);
+            $build->update($position, "time_explore", date("Y-m-d H:i:s"));
+            jsonfile::save("./store/house.json", $build->read());
+            echo json_encode(array(
+                'status' => 'update',
+                'message' => $build->read(),
+            ));
+        } else {
+            echo json_encode(array(
+                'status' => 'error',
+                'message' => $jf->prepare($data, REGHOUSE)[0],
+            ));
+        }
+    }
+
+    public static function remove_house()
+    {
+        $data = json_decode(file_get_contents("php://input"), true);
+        $rs = jsonfile::load("./store/house.json");
+        $build = new builder();
+        $build->create($rs);
+        $jr = new jsonrule($rs);
+        $position = $jr->get_position("hid", $data["hid"]);
+        $drs = $build->delete($position);
+        if ($drs) {
+            jsonfile::save("./store/house.json", $build->read());
+            echo json_encode(array(
+                'status' => 'removed',
+                'message' => $data["hid"],
+            ));
+        } else {
+            echo json_encode(array(
+                'status' => 'remove_fail',
+                'message' => 'can\'t remove ' . $data["hid"],
+            ));
+        }
+    }
+    
 
 }

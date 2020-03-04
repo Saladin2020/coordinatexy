@@ -1,6 +1,7 @@
 <?php session_start();
 if (isset($_SESSION["login"]) != "pass") {
-    header("Location: https://getxy2020.herokuapp.com/");
+     //header("Location: https://getxy2020.herokuapp.com/");
+     header("Location: http://localhost/coordinatexy/");
 }
 ?>
 <!DOCTYPE html>
@@ -106,7 +107,7 @@ function initialize_map() {
 }
 
 function add_map_point_2() {
-    console.log(v_map.position)
+    console.log(v_map.position.length)
     for (let i = 0; i < v_map.position.length; i++) {
         var vectorLayer = new ol.layer.Vector({
             source: new ol.source.Vector({
