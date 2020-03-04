@@ -20,28 +20,28 @@ v_get_address = new Vue({
         error_msg: ''
     },
     mounted: function () {
-        axios.get('http://49.229.25.51/api_coordinatexy/index.php/v1/get_province')
+        axios.get('https://getxy2020.herokuapp.com/api/province.json')
             .then(response => {
                 this.province = response.data.message
             })
             .catch(function (error) {
                 console.log(error);
             })
-        axios.get('http://49.229.25.51/api_coordinatexy/index.php/v1/get_amphur')
+        axios.get('https://getxy2020.herokuapp.com/api/amphur.json')
             .then(response => {
                 this.amphur = response.data.message
             })
             .catch(function (error) {
                 console.log(error);
             })
-        axios.get('http://49.229.25.51/api_coordinatexy/index.php/v1/get_district')
+        axios.get('https://getxy2020.herokuapp.com/api/district.json')
             .then(response => {
                 this.district = response.data.message
             })
             .catch(function (error) {
                 console.log(error);
             })
-        axios.get('http://49.229.25.51/api_coordinatexy/index.php/v1/get_zipcode')
+        axios.get('https://getxy2020.herokuapp.com/api/zipcode.json')
             .then(response => {
                 this.zipcode = response.data.message
             })
