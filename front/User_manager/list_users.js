@@ -29,7 +29,7 @@ v_list_users = new Vue({
             this.pagination_me.cur_page = 0
         },
         up: function () {
-            axios.get(BASE_URL + 'coordinatexy/loader.php?page=get_users')
+            axios.get(BASE_URL + 'loader.php?page=get_users')
                 .then(response => {
                     this.users = response.data
                     this.pagination_me_func()
