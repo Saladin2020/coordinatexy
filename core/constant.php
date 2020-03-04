@@ -1,6 +1,6 @@
 <?php
-//define('BASE_URL', 'https://getxy2020.herokuapp.com/');
-define('BASE_URL', 'http://localhost/coordinatexy/');
+define('BASE_URL', 'https://coordinatexy.herokuapp.com/');
+//define('BASE_URL', 'http://localhost/coordinatexy/');
 define(
     'ADDUSER',
     array(

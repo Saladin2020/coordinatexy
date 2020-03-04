@@ -1,7 +1,7 @@
 <?php session_start();
 if (isset($_SESSION["login"]) != "pass") {
-     //header("Location: https://getxy2020.herokuapp.com/");
-     header("Location: http://localhost/coordinatexy/");
+     header("Location: https://coordinatexy.herokuapp.com/");
+     //header("Location: http://localhost/coordinatexy/");
 }
 ?>
 <!DOCTYPE html>
