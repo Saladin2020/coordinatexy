@@ -29,7 +29,7 @@ v_add_user = new Vue({
                     cancelButtonText: 'cancel'
                 }).then((result) => {
                     if (result.value) {
-                        axios.post(BASE_URL+'coordinatexy/loader.php?page=edit_user', this.profile)
+                        axios.post(BASE_URL+'loader.php?page=edit_user', this.profile)
                             .then(response => {
                                 console.log(response)
                                 this.status = response.status
@@ -71,7 +71,7 @@ v_add_user = new Vue({
                     cancelButtonText: 'cancel'
                 }).then((result) => {
                     if (result.value) {
-                        axios.post(BASE_URL+'coordinatexy/loader.php?page=add_user', this.profile)
+                        axios.post(BASE_URL+'loader.php?page=add_user', this.profile)
                             .then(response => {
                                 console.log(response)
                                 this.status = response.status

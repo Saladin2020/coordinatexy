@@ -1,1 +1,1 @@
-let BASE_URL = 'http://49.229.25.51/'
+let BASE_URL = 'https://getxy2020.herokuapp.com/'

@@ -60,7 +60,7 @@ v_list_users = new Vue({
                     data_post = {
                         username: this.users.profile[user].username
                     }
-                    axios.post(BASE_URL + 'coordinatexy/loader.php?page=activate_user', data_post)
+                    axios.post(BASE_URL + 'loader.php?page=activate_user', data_post)
                         .then(response => {
                             v_add_user.status = response.status
                             v_add_user.result = response.data
@@ -93,7 +93,7 @@ v_list_users = new Vue({
                     data_post = {
                         username: this.users.profile[user].username
                     }
-                    axios.post(BASE_URL + 'coordinatexy/loader.php?page=remove_user', data_post)
+                    axios.post(BASE_URL + 'loader.php?page=remove_user', data_post)
                         .then(response => {
                             v_add_user.status = response.status
                             v_add_user.result = response.data
