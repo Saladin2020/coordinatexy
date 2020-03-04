@@ -11,7 +11,7 @@ v_login = new Vue({
                 username: this.user_name_input,
                 password: this.password_input
             }
-            axios.post(BASE_URL + 'coordinatexy/loader.php?page=login', post_data)
+            axios.post(BASE_URL + 'loader.php?page=login', post_data)
                 .then(response => {
                     console.log(response)
                     if (response.data.profile == "enter") {
